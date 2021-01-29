@@ -25,6 +25,7 @@ Route::group(['prefix' => 'diary'], function() {
     Route::get('create', 'App\Http\Controllers\TopController@add')->middleware('auth');
     Route::get('edit', 'App\Http\Controllers\TopController@edit');
     Route::post('creare', 'App\Http\Controllers\TopController@create');
+    Route::get('index', 'App\Http\Controllers\TopController@index')->middleware('auth');
 });
 
 Route::group(['prefix' => 'profile'], function() {

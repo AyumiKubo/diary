@@ -16,6 +16,24 @@ class ProfileController extends BaseController
     
     public function create()
     {
+        $this->validate($request, Profile::$rules);
+
+        $profile = new Profile;
+        $form = $request->all();
+
+        if (isset($form['iamge'])) {
+            $path = $request->file('image')->store('public/image');
+            $profile->image_path = basename($path);
+        } else {
+            $profile->image_path = null;
+        }
+
+        unset($form['_token']);
+        unset($form['image']);
+
+        $profile->fill($form);
+        $profile->save();
+
         return redirect('profile/create');
     }
 
