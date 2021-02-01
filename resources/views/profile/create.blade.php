@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <lavel class="col-md-2">年齢</label>
+                    <label class="col-md-2">年齢</label>
                     <div class="col-md-10">
                         <select name="age">
                             <option value="seacret">ないしょ♪</option>

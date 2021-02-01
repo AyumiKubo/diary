@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Diary;
 
 class TopController extends Controller
 {
@@ -18,15 +19,15 @@ class TopController extends Controller
         $diary = new Diary;
         $form = $request->all();
 
-        if (isset($form['image'])) {
-            $path = $request->file('image')->store('public/image');
+        if (isset($form['photo'])) {
+            $path = $request->file('photo')->store('public/photo');
             $diary->image_path = basename($path);
         } else {
             $diary->image_path = null;
         }
 
         unset($form['_token']);
-        unset($form['image']);
+        unset($form['photo']);
 
         $diary->fill($form);
         $diary->save();
@@ -36,7 +37,7 @@ class TopController extends Controller
 
     public function index(Request $request)
     {
-        $cond_date = $request->cond_dates;
+        $cond_date = $request->cond_date;
         if ($cond_date != '') {
             $posts = Diary::where('date', $cond_date)->get();
         } else {
