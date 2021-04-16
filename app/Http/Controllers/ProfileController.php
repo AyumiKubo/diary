@@ -2,48 +2,59 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Http\Request;
+use App\Models\Profile;
 
-class ProfileController extends BaseController
+class ProfileController extends Controller
 {
     public function add()
     {
         return view('profile.create');
     }
     
-    public function create()
+    public function create(Request $request)
     {
         $this->validate($request, Profile::$rules);
 
         $profile = new Profile;
         $form = $request->all();
 
-        if (isset($form['iamge'])) {
-            $path = $request->file('image')->store('public/image');
-            $profile->image_path = basename($path);
+        if (isset($form['photo'])) {
+            $path = $request->file('photo')->store('public/photo');
+            $profile->photo_path = basename($path);
         } else {
-            $profile->image_path = null;
+            $profile->photo_path = null;
         }
 
         unset($form['_token']);
-        unset($form['image']);
+        unset($form['photo']);
 
         $profile->fill($form);
         $profile->save();
 
-        return redirect('profile/create');
+        return redirect('top');
     }
 
-    public function edit()
+    public function __construct(Profile $profile)
     {
-        return view('profile.edit');
+        $this->profile = $profile;
+    }
+
+    public function edit($id)
+    {
+        $profile = $this->profile->selectProfileFindById($id);
+
+        return view('profile.edit', ['profile_form' => $profile]);
     }
 
     public function update()
     {
         return redirect('profile/edit');
+    }
+
+    public function index()
+    {
+        $profile = Auth::profile();
+        return view('profile.myprofile', ['profile_form' => $profile]);
     }
 }

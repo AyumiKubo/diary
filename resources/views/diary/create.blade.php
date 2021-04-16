@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-md-8 mx-auto">
                 <h2>日記作成</h2>
-                <form action="{{ action('App\Http\Controllers\TopController@create') }}" metod="post" enctype="multupart/form-date">
+                <form action="{{ action('App\Http\Controllers\TopController@create') }}" method="post" enctype="multupart/form-date">
 
                     @if (count($errors) > 0)
                         <ul>

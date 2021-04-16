@@ -15,7 +15,7 @@
                         <div class="form-group row">
                             <label class="col-md-2">日付</label>
                             <div class="col-md-8">
-                                <input type="date" class="form-control" name="cond_date" value="{{ $cond_date }}">
+                                <input type="date" class="form-control" name="cond_date" >
                             </div>
                             <div class="col-md-2">
                                 {{ csrf_field() }}
@@ -38,7 +38,15 @@
                                 @foreach($posts as $diary)
                                     <tr>
                                         <th>{{  $diary->date }}</th>
-                                        <th>{{ \Str::limit($diary->body, 250 )}}</th>
+                                        <td>{{ \Str::limit($diary->body, 250 )}}</td>
+                                        <td>
+                                            <div>
+                                                <a href="{{ action('App\Http\Controllers\TopController@edit', ['id' => $diary->id]) }}">編集</a>
+                                            </div>
+                                            <div>
+                                                <a href="{{ action('App\Http\Controllers\TopController@delete', ['id' => $diary->id]) }}">削除</a>
+                                            </div>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

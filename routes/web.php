@@ -26,10 +26,14 @@ Route::group(['prefix' => 'diary'], function() {
     Route::get('edit', 'App\Http\Controllers\TopController@edit');
     Route::post('creare', 'App\Http\Controllers\TopController@create');
     Route::get('index', 'App\Http\Controllers\TopController@index')->middleware('auth');
+    Route::post('edit', 'App\Http\Controllers\TopController@update')->middleware('auth');
+    Route::get('delete', 'App\Http\Controllers\TopController@delete')->middleware('auth');
 });
 
 Route::group(['prefix' => 'profile'], function() {
     Route::get('create', 'App\Http\Controllers\ProfileController@add')->middleware('auth');
-    Route::get('edit', 'App\Http\Controllers\ProfileController@edit');
-    Route::post('creare', 'App\Http\Controllers\ProfileController@create');
+    Route::get('edit/{id}', 'App\Http\Controllers\ProfileController@edit')->middleware('auth');
+    Route::post('creare', 'App\Http\Controllers\ProfileController@create')->middleware('auth');
+    Route::post('create', 'App\Http\Controllers\ProfileController@update');
+    Route::get('index', 'App\Http\Controllers\ProfileController@index')->middleware('auth');//プロフィールの表示
 });

@@ -7,10 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
 {
-    protected $gurded = array('id');
+    protected $guarded = array('id');
 
     public static $rules = array(
         'user' => 'required',
     );
+
+    public function selectProfileFindById($id) //IDから一件のデータを取得する
+    {
+        $query = $this->select([
+            'id', 'user', 'photo_path', 'age', 'introduction'
+        ])->where([
+            'id' => $id
+        ]);
+
+        return $query->first(); //first()は一件のみ取得する関数
+
+    }
     
 }

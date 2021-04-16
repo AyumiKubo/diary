@@ -32,7 +32,7 @@
                     <label class="col-md-2">年齢</label>
                     <div class="col-md-10">
                         <select name="age">
-                            <option value="seacret">ないしょ♪</option>
+                            <option value="secret">ないしょ♪</option>
                             <option value="10s">10代</option>
                             <option value="20s">20代</option>
                             <option value="30s">30代</option>
